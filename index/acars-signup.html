@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<!--
+	Hielo by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+		<title>Flyify - ACARS Sign-Up</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" type="image/png" href="https://lh3.google.com/u/0/d/1QdWRMCSgK4uufDW1zZhcKo_VRMTsww_3=w1920-h937-iv2">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-163995621-1"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-163995621-1');
+		</script>
+		<!-- Signup Code START -->
+		<script>
+  $(document).ready(function() {
+    $("#create").on('click', ()=>{
+      var username = $("#username").val();
+      var password = $("#password").val();
+      var homeairport = $("#hap").val();
+      var country = $("#country").val();
+      var email = $("#email").val();
+
+      if (username == "" || password == "" || homeairport == "" || country == "" || email == "") {
+        $("#output").text("One or more fields are blank.");
+        return;
+      }
+      $.post("/core/authentication/create/", {
+        username: username,
+        password: password,
+        hap: homeairport,
+        country: country,
+        email: email
+      }, (data)=> {
+        var output = JSON.parse(data);
+        if (output["status"]=="success"){
+          $("#output").text("Account created successfully.");
+          window.location.replace("/acars-login.html");
+        } else {
+          if (output["code"] == "10004") {
+            $("#output").text("Username taken");
+			return;
+          }
+          $("#output").text("Error creating account. Try again later. ("+output["code"]+")");
+        }
+      });
+    })
+  });
+</script>
+		<!-- Signup Code END -->
+		<!-- Drop-down Menu START -->
+		<style>
+.dropbtn {
+  background-color: #c37134;
+  color: white;
+  padding: 16px;
+  font-size: 15.3px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #5e8bb0;
+  min-width: 160px;
+
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #5e8bb0;}
+</style>
+	<!-- Drop-down Menu END -->
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="index.html">Flyify</a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="/">Home</a></li>
+					<li><a href="getting-started.html">Getting Started</a></li>
+					<li><a href="atc.html">Air Traffic Control</a></li>
+					<li><a href="pilots.html">Pilots</a></li>
+					<li><a href="about.html">About</a></li>
+					<li><a href="feedback.html">Feedback</a></li>
+					<div class="dropdown">
+  <button class="dropbtn">Virtual Airline</button>
+  <div class="dropdown-content">
+    <a href="acars-signup.html">Sign-Up</a>
+    <a href="acars-login.html">Log In</a>
+    <a href="acars.html">File Flight</a>
+	<button onclick="$.get('/core/authentication/logout/')" value="Logout">Log Out</button>
+ </div>
+</div>
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section id="One" class="wrapper style3">
+				<div class="inner">
+					<header class="align-center">
+						<h2>ACARS Sign-Up</h2>
+					</header>
+				</div>
+			</section>
+
+		<!-- Header -->
+			<section id="two" class="wrapper style2">
+				<div class="inner">
+					<div class="box">
+						<div class="content">
+							<header class="align-center">
+							</header>
+							<h4><center><b>Welcome to the ACARS sign-up page! Here you can sign up for our exculsive ACARS system.</b>
+		<!-- Signup Form START -->
+							<form>
+  <p id="output"></p>
+  <input type="text" placeholder="Username" name="username" id="username">
+  <input type="password" placeholder="Password" name="password" id="password">
+  <input type="text" placeholder="Home Airport ICAO" name="hap" id="hap">
+  <input type="text" placeholder="Home country" name="country" id="country">
+  <input type="email" placeholder="Email" name="email" id="email">
+  <input type="button" value="Create Account" id="create">
+</form>
+		<!-- Signup Form END -->
+					</center></h4>
+						</div>
+					</div>
+				</div>
+
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="https://www.instagram.com/flyifycm/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="mailto:social@flyify.net" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; Flyify. All rights reserved.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
